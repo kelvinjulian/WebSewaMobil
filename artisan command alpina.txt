@@ -1,0 +1,35 @@
+php artisan make:model Category -m
+php artisan make:model Vehicle -m
+php artisan make:model VehiclePhoto -m
+php artisan make:model AlpinaStore -m
+php artisan make:model Testimonial -m
+php artisan make:model BookingTransaction -m
+
+kemudian masukkan semua atribut sesuai dari ERD yang sudah didesain,
+setelah itu lakukan php artisan migrate:fresh, untuk melakukan migrasi lagi, cek di phpMyAdmin apakah database (alpinabackendbwa) nya sudah update (refresh)
+
+-
+
+php artisan make:filament-resource Category --soft-deletes
+php artisan make:filament-resource Vehicle --soft-deletes
+php artisan make:filament-resource AlpinaStore --soft-deletes
+php artisan make:filament-resource Testimonial --soft-deletes
+php artisan make:filament-resource BookingTransaction --soft-deletes
+
+-
+
+php artisan make:resource Api/CategoryApiResource
+php artisan make:resource Api/VehicleApiResource
+php artisan make:resource Api/AlpinaStoreApiResource
+php artisan make:resource Api/TestimonialApiResource
+php artisan make:resource Api/BookingTransactionApiResource
+php artisan make:resource Api/VehiclePhotoApiResource
+php artisan make:resource Api/ViewBookingDetailsApiResource
+
+-
+
+php artisan make:controller Api/CategoryController
+php artisan make:controller Api/AlpinaStoreController
+
+
+
