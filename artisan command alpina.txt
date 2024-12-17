@@ -30,6 +30,9 @@ php artisan make:resource Api/ViewBookingDetailsApiResource
 
 php artisan make:controller Api/CategoryController
 php artisan make:controller Api/AlpinaStoreController
+php artisan make:controller Api/TestimonialController
+php artisan make:controller Api/BookingTransactionController
+php artisan make:controller Api/VehicleController
 
 
 
