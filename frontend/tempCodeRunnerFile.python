@@ -1,0 +1,30 @@
+# Definisi data restoran
+restoran = [
+    {"nama": "Restoran A", "halal": True, "murah": True, "dekat": True},
+    {"nama": "Restoran B", "halal": True, "murah": False, "dekat": True},
+    {"nama": "Restoran C", "halal": False, "murah": True, "dekat": False},
+]
+
+# Data tambahan tentang waktu tempuh
+waktu_tempuh = {
+    "Restoran A": 5,  # Waktu tempuh dalam menit
+    "Restoran B": 15,
+    "Restoran C": 20,
+}
+
+# Fungsi untuk menentukan restoran cocok
+def restoran_cocok(data):
+    hasil = []
+    for r in data:
+        if r["halal"] and r["murah"] and r["dekat"]:
+            hasil.append(r["nama"])
+    return hasil
+
+# Filter berdasarkan kriteria awal
+hasil_cocok = restoran_cocok(restoran)
+
+# Filter tambahan berdasarkan waktu tempuh (<= 10 menit)
+restoran_final = list(filter(lambda r: waktu_tempuh[r] <= 10, hasil_cocok))
+
+# Menampilkan hasil akhir
+print("Restoran yang cocok dan waktu tempuh <= 10 menit:", restoran_final)

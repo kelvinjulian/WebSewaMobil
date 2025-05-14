@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: "Poppins";
+  color: #060521;
+  background-color: #dae1e9;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* styles/globals.css */
+.loader {
+  border-top-color: #362eed;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

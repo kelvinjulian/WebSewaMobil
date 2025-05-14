@@ -1,0 +1,195 @@
+1. Warming Up
+
+2. Start Building
+
+3. Content Management System
+
+4. RESTful API
+
+5. Persiapan
+
+6. HTML to NextJS
+a. Convert Home Page / Landing Page 
+- di tahap ini kita akan convert code html kita ke next js, download terlebih dahulu assets frontendnya,  convert index.html ke page.tsx (di dalam folder app) mulai dari index dari bagian header dst, semua Class diubah menjadi className, dan lain lain sesuai persyaratan di Nextjs.
+- Kemudian kita copy css dari input.css bagian body ke global.css, dari root diremove dan paste bagian body tadi.
+- Copy juga images ke folder Assets yang sudah dibuat, untuk menampilkan gambar, maka kita perlu mengubah element html img menjadi Image, jangan lupa import Image nya dengan import second from '@/assets/images/logos/logo.svg', dan lain lain tiap mau menggunakan gambar, kemudian pada Image src ubah ke {Logo}
+
+b. Convert Categories
+- buat folder category di dalam folder app, tambahkan folder [slug], karena kita ingin dinamis, kemudian dalam [slug] buat folder page.tsx.
+- di [slug]/page.tsx buat komponen halaman CategoryPage,
+- buka assets fullcodebwa, kemudian copy isi file layout/index.tsx ke project kita, ditempat yang sama juga yaitu layout/index.tsx (buat jika belum ada), kemudian install classnames yang ada di index.tsx tsb dengan cara membuka terminal :
+* nvm use 23 (ini yang terbaru saat panduan ini dibuat)
+* npm i classnames
+- kemudian buat components/svg di dalam folder src, karena file ini yang untuk import semua Icon yang ada di layout/index.tsx
+- copy paste semua file svg dari fullcodebwa ke project kita ke folder components/svg
+- buat folder (index), dalam folder src/app/, kemudian pindahkan src/app/page.tsx ke dalam src/app/(index)/, kemudian buat file layout.tsx di folder yang sama, kegunaan layout ini adalah untuk membungkus file page.tsx, jadi childrennya akan ada di page.tsx
+- pada (index)/page.tsx hapus yang berisi main content dan nav bagian Bottom-Nav, ubah komponennya dari Home jadi HomePage, hapus juga a href pada section Category
+- copy layout.tsx yang ada di (index) ke category/[slug], tambahkan <MainLayout navigationBottom={false}>
+- kemudian convert bagian categoty.html ke [slug]/page.tsx, jangan lupa import gambar
+
+c. Convert Detail Page
+- sama seperti sebelumnya, kita membuat folder browse/[slug] di dalam folder app, kemudian buat file page.tsx, dan layout.tsx di dalam slug tsb
+- lakukan proses yang sama seperti sebelumnya, yaitu copy code dari html untuk diconvert ke nextjs, mulai dari bagian top bar
+- tambahkan onClick untuk Kembali atau pindah ke page yang dituju, menambahkan cursor-pointer
+- saat convert bagian main, akan banyak error, selesaikan saja seperti biasa
+- kemudian jangan lupa convert juga bagian Bottom CTA, jadi isinya ada Top Bar, Main, dan Bottom CTA
+
+d. Convert Checkout Page Part 1
+- buat folder booking/page.tsx di app, tidak menggunakan slug, karena kita menggunakan query params
+- copy layout yang sudah dibuat sebelumnya ke folder booking
+- convert dari booking html untuk page.tsx yang barusan dibuat, seperti convert sebelumnya, misalnya bagian class jadi className, img jadi Image /, jangan lupa import gambar untuk src nya
+	1. bagian line 10 (div main content) - line 12
+	2. bagian header line 22 - line 44
+	3. bagian form, line 45 hingga 90, seperti biasa dan tambahkan tutup / untuk input, serta hapus onClick karena akan kita ganti
+- http://localhost:3000/booking?slug=488-pista-spyder-white
+
+e. Convert Checkout Page Part 2
+- tambahkan logic if else untuk number 1 atau 2, jika 1 maka membuka div yang kita buat sebelumnya, jika 2 maka masuk ke page lain, namun masih di file yang sama
+- convert bagian delivery.html untuk ke else jika 2
+- bagian untuk diconvert ada div Utama yang latar putih, dan biru, top bar, header, booking details, delivery options
+- hapus semua onClick, hidden dll, dan semua comments html karena akan digantikan
+- untuk mengubah halamannya, ubah nomor di code line ini (misal 1 2):
+	const [step, setStep] = useState<number>(2);
+- http://localhost:3000/booking?slug=488-pista-spyder-white
+
+
+f. Convert Checkout Page Part 3
+- tambahkan else if jika number 3 untuk masuk ke halaman ini
+- convert payment.html, copy dari line 10 hingga 21, top bar, header, booking details, delivery details, payment details, send payment, proof of payment
+- prosesnya sama persis dengan bagian Convert Checkout Page Part 2
+- untuk mengubah halamannya, ubah nomor di code line ini (misal 1 2 3):
+	const [step, setStep] = useState<number>(3);
+- http://localhost:3000/booking?slug=488-pista-spyder-white
+
+
+g. Convert Booking Finished
+- masih pada file yang sama yaitu booking/page.tsx, tambahkan else untuk number 4, yang akan masuk ke halaman ini
+- convert booking-finished.html, copy dari line 10 - 40
+- untuk mengubah halamannya, ubah nomor di code line ini (misal 1 2 3 4):
+	const [step, setStep] = useState<number>(4);
+- http://localhost:3000/booking?slug=488-pista-spyder-white
+
+h. Convert Booking Detail 
+- buat folder detail/page.tsx di dalam folder src/app/booking 
+- http://localhost:3000/booking/detail
+- convert booking-details.html, copy bagian main content langsung (ada bagian latar, top bar, header, booking details, delivery details, payment details, payment proof, call customer service)
+
+
+i. Convert From Check My Booking
+- ketika menekan check my booking, nanti dia akan redirect ke halaman booking detail tadi
+- buat 1 folder dalam src/app yaitu check-booking
+- copy paste page.tsx dan layout.tsx dari folder (index), kemudian remove semua isi halamannya
+- buat jadi halaman CheckBooking Page
+- convert check-booking.html, copas main content dari line 10 hingga 94
+- http://localhost:3000/check-booking
+
+7. Integration
+a. Integration API Landing Page (categories, popular vehicles and vehicles)
+- pertama tama sebelum kita memulai nomor baru, ada baiknya kita backup data terlebih dahulu, jadi disini saya akan mengbackup folder alpinabackendbwa yang didalamnya juga ada nextjs-fe-alpina, untuk berjaga jaga
+- Langkah selanjutnya buat folder src/section/home/index.ts dan view.tsx jika belum ada
+- copy isi file src/section/home/view.tsx dari full-code-bwa-alpina 
+- kemudian buat lagi file top-bar/tsx pada path yang sama, tujuannya karena top bar hanya digunakan pada homepage, jadi agar memudahkan modifikasi code, kita buat file nya dan tidak perlu menjadikannya global component
+- copy lagi isi file topbar dari fullcode
+- setelah itu pada index.ts yang dibuat, lakukan export * from "./view";
+- dan pada src/app/(index)/page.tsx. perlu kita modifikasi seperti ini import { HomeView } from "@/section/home";...
+- kemudian buka postman, get all categories, jangan lupa ubah base-url nya menggunakan localhost, tekan AlpinaCMSBWA, dan buka menu Variables, dan buat base_url yang initial dan current valuenya http://localhost:8000/api (awalnya {{base api url}} http://127.0.0.1:8000)
+- copy file full-code-bwa-alpina\src\types\index.ts ke nextjs, buat folder src/types
+- buka file view lagi, dan tambahkan export function HomeView(categories, popularVehicles, vehicles) {
+- nvm use 23, npm i axios
+- copy src/actions/categories.tsx dan index.tsx dari full code ke nextjs
+- copy src/utils ke nextjs, jadi setelah install axios, kemudian kita import, dan kita akan create axios
+- copy .env, setelah itu kita harus restart server dengan perintah yarn dev di cmd yang sama dengan npm run dev tadi
+- copy full-code-bwa-alpina\src\components\card\categories.tsx dan index.ts ke nextjs,
+- buka categories.tsx yang sudah dicopy, modifikasi bagian props, kemudian buat Props nya, dan install swiper react menggunakan terminal
+- copy paste swiper/css dan swiper/css/navigation ke layout.tsx kita untuk mengaktifkan swipernya
+- integrasi bagian popular vehicles
+- copy paste dari full-code-bwa-alpina/src/actions/vehicles.tsx ke nextjs, kemudian nyalakan Kembali komen bagian vehicles pada src/actions/index.ts, hapus juga slash awal di code vehicles.tsx tersebut karena sudah ada slash di bagian env
+- tambahkan import getPopularVehicles di (index)/page.tsx, tambahkan const popularVehicles, dan modifikasi juga bagian HomeViewnya
+- copas lagi bagian full-code-bwa-alpina\src\components\card\popular-vehicles.tsx ke nextjs kita, karena terdapat error pada bagian utils, maka
+- copas full-code-bwa-alpina\src\utils\utils.ts paste ke nextjs
+- nyalakan juga komentar bagian popular-vehicles di nextjs-fe-alpina\src\components\card\index.ts
+JANGAN LUPA SETIAP MENGECEK WEBSITENYA, HARUS MENJALANKAN NPM RUN DEV UNTUK NEXTJS DAN PHP ARTISAN SERVE UNTUK BACKEND
+- integrasi bagian vehicles
+- tambahkan import getVehicles di (index)/page.tsx, tambahkan const vehicles, dan modifikasi juga bagian HomeViewnya
+- pada bagian view.tsx juga nyalakan bagian VehiclesCard
+- copas card dari full-code-bwa-alpina\src\components\card\vehicles.tsx ke nextjs, seharusnya sudah tidak ada error
+- nyalakan export vehicles di nextjs-fe-alpina\src\components\card\index.ts
+
+b. Integration API Categories (vehicles by category and popular vehicles)
+	1. di bagian ini kita akan melakukan filter by category yang ada pada bagian atas page (Cities, Tracks, Mountains, Beaches)
+	2. pertama kita akan menambahkan loading di nextjs-fe-alpina\src\app\(index)\page.tsx
+	3. copas dari full-code-bwa-alpina\src\app\check-booking\loading.tsx, setelah itu copy juga komponen loading nya 	src/components/loading/index.tsx dan spinner.tsx
+	4. setelah itu tambahkan global.css yang sama dari full-code-bwa-alpina
+	5. copas juga loading.tsx tadi ke dalam folder category/[slug]
+	6. Lanjut ke bagian page.tsx, kita buka category/[slug]/page.tsx di fullcode, copy ke nextjs
+	7. copas dari fullcode folder browse di sections/browse/by-category
+
+c. Integration Detail Page (vehicles by slug)
+	1. lakukan backup data terlebih dahulu sebelum memulai
+	2. modifikasi bagian app/browse[slug]/page.tsx, remove dari div paling awal hingga akhir (line 17 hingga 169)
+	3. remove juga bagian import diawal (semuanya)
+	4. buka dan copas full-code-bwa-alpina\src\sections\browse\by-vehicle ke project kita dengan path yang sama
+	5. buka dan copas full-code-bwa-alpina\src\app\browse\[slug]\page.tsx ke project kita dengan path yang sama
+	6. modifikasi bagian view.tsx yang ada pada folder by-vehicle di no 4 tadi
+	7. copas tailwind.config.ts dari full code, semuanya
+	8. copas full-code-bwa-alpina\src\components\button ke project kita dengan path yang sama, modifikasi sedikit pada file button.tsx
+	9. buka page.tsx pada alpina\nextjs-fe-alpina\src\app\booking\page.tsx, dan ubah useState<number>(1); dari 4 menjadi 1
+
+d. Integration Checkout Page Part 1
+	1. install "npm i react-hook-form @hookform/resolvers yup"
+	2. copas dari full-code-bwa-alpina\full-code-bwa-alpina\src\app\booking\page.tsx ke project kita dengan path yang sama
+	3. buat folder pada booking pada sections, kemudian buat index.ts dan view.tsx, copas sedikit sedikit dari fullcode agar tidak 	bingung
+	4. buat folder form di dalam folder booking yang sudah dibuat pada no 3, kemudian tambahkan index.ts dan information.tsx, copas 	information.tsx dari fullcode
+	5. buat file top-bar.tsx di dalam folder booking
+	6. copas header dari fullcode, yang ada di dalam folder form
+	7. buat folder hook-form pada folder components, copas dari fullcode
+	8. copy default dari fullcode
+
+e. Integration Checkout Page Part 2
+	1. buka view.tsx pada booking, dan lakukan hardcode Delivery
+	2. copas full-code-bwa-alpina\src\sections\booking\form\delivery.tsx ke project kita
+	3. ubah beberapa error menjadi comments terlebih dahulu, kemudian export pada index.ts
+	4. tambahkan juga import FormDelivery pada view.tsx nya
+	5. lalu buat form delivery dibawah pada Step nya
+	6. copas full-code-bwa-alpina\src\sections\booking\form\info.tsx ke project kita
+	7. copas full-code-bwa-alpina\src\sections\booking\form\item.tsx ke project kita
+	8. copas full-code-bwa-alpina\src\sections\booking\form\info-detail.tsx ke project kita
+	9. npm i moment
+	10. copas full-code-bwa-alpina\src\sections\booking\form\delivery-option.tsx ke project kita
+	11. copas full-code-bwa-alpina\src\sections\booking\form\store-option.tsx ke project kita
+	12. copas full-code-bwa-alpina\src\components\skeleton
+	13. copas full-code-bwa-alpina\src\components\privacy (nyalakan juga semua comments import di delivery.tsx)
+
+	
+○ Compiling /browse/[slug] ...
+ ✓ Compiled /browse/[slug] in 621ms
+Error: Route "/browse/[slug]" used `params.slug`. `params` should be awaited before using its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis
+    at getVehiclesBySlug (file://C%3A/laragon/www/bwa_alpina/frontend/nextjs-fe-alpina/src/actions/vehicles.tsx:17:42)
+    at BrowseDetail (file://C%3A/laragon/www/bwa_alpina/frontend/nextjs-fe-alpina/src/app/browse/%5Bslug%5D/page.tsx:9:49)
+  15 | }
+  16 |
+> 17 | export async function getVehiclesBySlug({ slug }: { slug: string | null }) {
+     |                                          ^
+  18 |   const res = await axiosInstance.get(`vehicle/${slug}`);
+  19 |
+  20 |   return res.data.data;
+ GET /browse/pagani-huayra 200 in 2170ms
+
+karena ada error ini saya melakukan perubahan pada src/actions/vehicles.tsx
+dari : 
+
+
+
+
+
+f. Integration Checkout Page Part 3
+	1. 
+	2. 
+	3. 
+	4. 
+	5. 
+	6. 
+	7. 
+	8. 
+	9. 
+	10. 
