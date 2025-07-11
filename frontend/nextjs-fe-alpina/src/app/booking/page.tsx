@@ -2,10 +2,11 @@ import { getVehiclesBySlug } from "@/actions";
 import { BookingView } from "@/sections/booking";
 
 type Props = {
-  searchParams: { slug?: string };
+  searchParams: Promise<{ slug?: string }>;
 };
 
-export default async function Booking({ searchParams }: Props) {
+export default async function Booking(props: Props) {
+  const searchParams = await props.searchParams;
   const { slug } = searchParams;
 
   if (!slug) {

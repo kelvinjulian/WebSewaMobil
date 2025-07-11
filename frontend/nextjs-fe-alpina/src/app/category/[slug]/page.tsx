@@ -2,12 +2,13 @@ import { BrowseVehiclesByCategoryView } from "@/sections/browse/by-category";
 import { getVehiclesByCategory, getPopularVehicles } from "@/actions";
 
 type Props = {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 };
 
-export async function generateMetadata({ params }: Props) {
+export async function generateMetadata(props: Props) {
+  const params = await props.params;
   const { slug } = params;
 
   return {
@@ -16,7 +17,8 @@ export async function generateMetadata({ params }: Props) {
   };
 }
 
-export default async function BrowseByCategory({ params }: Props) {
+export default async function BrowseByCategory(props: Props) {
+  const params = await props.params;
   const popularVehicles = await getPopularVehicles();
 
   const vehiclesByCategory = await getVehiclesByCategory(params);

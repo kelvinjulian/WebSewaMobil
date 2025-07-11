@@ -28,41 +28,41 @@ export const validationSchema = yup.object().shape({
     .string()
     .required("Please select a store")
     .matches(/^[0-9]+$/, "Phone number must only contain digits"),
-  // proof: yup
-  //   .mixed()
-  //   .nullable() // Allow proof to be null initially
-  //   .required("Please upload a proof file")
-  //   .test("fileSize", "File size is too large (max 2MB)", (value) => {
-  //     if (!value) return true; // If no file, skip size validation
-  //     return (value as File).size <= 2000000; // Max file size 2MB
-  //   })
-  //   .test("fileType", "Unsupported file format", (value) => {
-  //     if (!value) return true; // If no file, skip type validation
-  //     return ["image/jpeg", "image/png", "application/pdf"].includes(
-  //       (value as File).type
-  //     );
-  //   }),
-  // price: yup
-  //   .number()
-  //   .required("Price is required")
-  //   .min(0, "Price must be a positive number"),
-  // total_tax: yup
-  //   .number()
-  //   .required("Total tax is required")
-  //   .min(0, "Total tax must be a positive number"),
-  // discount: yup
-  //   .number()
-  //   .required("Total tax is required")
-  //   .min(0, "Total tax must be a positive number"),
-  // insurance: yup
-  //   .number()
-  //   .required("Insurance amount is required")
-  //   .min(0, "Insurance must be a positive number"),
-  // total_amount: yup
-  //   .number()
-  //   .required("Total amount is required")
-  //   .min(0, "Total amount must be a positive number"),
-  // vehicle_id: yup.number().required().nullable(),
+  proof: yup
+    .mixed()
+    .nullable() // Allow proof to be null initially
+    .required("Please upload a proof file")
+    .test("fileSize", "File size is too large (max 2MB)", (value) => {
+      if (!value) return true; // If no file, skip size validation
+      return (value as File).size <= 2000000; // Max file size 2MB
+    })
+    .test("fileType", "Unsupported file format", (value) => {
+      if (!value) return true; // If no file, skip type validation
+      return ["image/jpeg", "image/png", "application/pdf"].includes(
+        (value as File).type
+      );
+    }),
+  price: yup
+    .number()
+    .required("Price is required")
+    .min(0, "Price must be a positive number"),
+  total_tax: yup
+    .number()
+    .required("Total tax is required")
+    .min(0, "Total tax must be a positive number"),
+  discount: yup
+    .number()
+    .required("Total tax is required")
+    .min(0, "Total tax must be a positive number"),
+  insurance: yup
+    .number()
+    .required("Insurance amount is required")
+    .min(0, "Insurance must be a positive number"),
+  total_amount: yup
+    .number()
+    .required("Total amount is required")
+    .min(0, "Total amount must be a positive number"),
+  vehicle_id: yup.number().required().nullable(),
 });
 
 export type FormValues = {
@@ -73,13 +73,13 @@ export type FormValues = {
   duration: number;
   deliveryType: string;
   alpina_store_id: string;
-  // proof?: any;
-  // price: number;
-  // discount: number;
-  // total_tax: number;
-  // insurance: number;
-  // total_amount: number;
-  // vehicle_id: number | null;
+  proof?: any;
+  price: number;
+  discount: number;
+  total_tax: number;
+  insurance: number;
+  total_amount: number;
+  vehicle_id: number | null;
 };
 
 export type Props = { vehiclesBySlug: Vehicle | null };
@@ -91,12 +91,42 @@ export const defaultValues = {
   phone: "",
   duration: 10,
   deliveryType: "pickup",
-  // proof: "",
-  // price: 0,
-  // total_tax: 0,
-  // discount: 0,
-  // insurance: 500000,
-  // total_amount: 0,
+  proof: "",
+  price: 0,
+  total_tax: 0,
+  discount: 0,
+  insurance: 500000,
+  total_amount: 0,
   alpina_store_id: "",
-  // vehicle_id: null,
+  vehicle_id: null,
+};
+
+export const defaultBooking = {
+  id: 0,
+  name: "",
+  phone: "",
+  email: "",
+  proof: "",
+  booking_trx_id: "",
+  is_paid: false,
+  total_amount: 0,
+  total_tax_amount: 0,
+  price: 0,
+  insurance: 0,
+  started_at: "",
+  vehicle_id: "",
+  alpina_store_id: "",
+  vehicle: {
+    id: 0,
+    name: "",
+    slug: "",
+    duration: 0,
+    horse_power: 0,
+    cc: 0,
+    max_speed: 0,
+    price: 0,
+    isPopular: 0,
+    thumbnail: "",
+    about: "",
+  },
 };

@@ -175,21 +175,56 @@ Error: Route "/browse/[slug]" used `params.slug`. `params` should be awaited bef
   20 |   return res.data.data;
  GET /browse/pagani-huayra 200 in 2170ms
 
-karena ada error ini saya melakukan perubahan pada src/actions/vehicles.tsx
-dari : 
 
+diatasi dengan menjalankna perintah ini : npx @next/codemod@latest next-async-request-api
+nanti code akan berubah sendiri terhadap 5 file
 
 
 
 
 f. Integration Checkout Page Part 3
-	1. 
-	2. 
-	3. 
-	4. 
-	5. 
-	6. 
-	7. 
-	8. 
-	9. 
-	10. 
+	1. const [step, setStep] = useState<Step>(Step.Information); // bagian ini menentukan halaman mana terlebih dahulu yang akan 		ditampilkan pada src/sections/booking/view.tsx (dapat diubah ke Information, Delivery, Payment, Success)
+	2. buat case Step.Payment: (copas dari fullcode line 161)
+	3. buat form payment nya
+	4. copas dari full-code-bwa-alpina\src\sections\booking\form\payment.tsx letakkan di form kita (yang masih error di comments 		terlebih dahulu)
+	5. export di index.tsx nya export * from "./payment";
+	6. tambahkan import { FormInformation, FormDelivery, FormPayment } from "./form"; pada view.tsx
+	7. nyalakan Kembali error yang dicomment sebelumnya (satu persatu)
+
+	8. copas dari full-code-bwa-alpina\src\sections\booking\form\payment-store.tsx letakkan di form kita
+	9. nyalakan import diatas payment.tsx untuk bagian payment-store
+
+	10. copas dari full-code-bwa-alpina\src\sections\booking\form\payment-detail.tsx letakkan di form kita
+	11. nyalakan import diatas payment.tsx untuk bagian payment-detail
+	12. nyalakan hardcode paling Bawah pada src\sections\booking\default.ts
+	13. copy useEffect pada full-code-bwa-alpina\src\sections\booking\view.tsx, paste ke code kita, tambahkan useEffect pada import 	diatas
+
+	14. copas dari full-code-bwa-alpina\src\sections\booking\form\payment-send.tsx letakkan di form kita
+	15. nyalakan import diatas payment.tsx untuk bagian payment-send
+
+	16. copas dari full-code-bwa-alpina\src\sections\booking\form\payment-proof.tsx letakkan di form kita
+	17. nyalakan import diatas payment.tsx untuk bagian payment-proof
+ 
+	18. copas full-code-bwa-alpina\src\components\hook-form\file-upload.tsx
+	19. export * from "./file-upload"
+	
+	20. copas bagian onSubmit pada full-code-bwa-alpina\src\sections\booking\view.tsx (line 57 - 100)
+	21. import axiosInstance from "@/utils/axiosInstance";
+	22. nyalakan semua proof di defaults.ts
+	23. import { FormValues, defaultValues, validationSchema } from "./default"; (tambahkan FormValues)
+
+g. Integration Success Booking
+	1. copas case Step.Success dari fullcode pada view.tsx kita
+	2. copas defaultBooking pada default.ts nya
+	3. tambahkan juga import defaultBookingnya pada awal code, dan import FormSuccess
+	4. copas full-code-bwa-alpina\src\sections\booking\form\success.tsx
+	5. export * from './success'; pada index.ts
+
+h. Integration Booking Detail
+	1. copas full-code-bwa-alpina\src\app\booking\detail\loading.tsx dan page.tsx
+	2. copas full-code-bwa-alpina\src\sections\booking\detail
+	3. copas full-code-bwa-alpina\src\actions\bookings.tsx dan nyalakan comment pada index.ts pada folder yang sama
+
+h. Integration Checking Booking
+	1. copas full-code-bwa-alpina\src\app\check-booking\loading.tsx dan page.tsx (copas saja walaupun sudah punya)
+	2. copas full-code-bwa-alpina\src\sections\check-booking
